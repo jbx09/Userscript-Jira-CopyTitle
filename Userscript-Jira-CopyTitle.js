@@ -5,12 +5,13 @@
 // @description  Adds a "Copy Task Title" button to the right of the "Workflow" dropdown in Jira.
 // @author       Joe Etten
 // @license      MIT
-// @match        https://*.atlassian.net/secure/*
-// @match        https://*.atlassian.net/browse/*
+// @match        https://jira.*
 // @grant        none
 
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js
+
 
 // ==/UserScript==
 
@@ -22,7 +23,7 @@
 
       if(!$('#clipboardBtn').next().length) {
         $('#clipboardBtn').remove();
-        var container = $("#THIRD_PARTY_TAB .call-to-actions, .toolbar-split-left");
+        var container = $("#issue-header-pager");
         container.append("<a id='clipboardBtn' class='btn aui-button aui-button-primary aui-style'>Copy Task Title</a>");
       }
     }
@@ -64,9 +65,9 @@
       handleCopyButton();
       addCopyButton();
 
-      JIRA.bind(JIRA.Events.NEW_CONTENT_ADDED, function() {
-        updateHandlers();
-      });
+      //JIRA.bind(JIRA.Events.NEW_CONTENT_ADDED, function() {
+      //  updateHandlers();
+      //});
     }
 
     function updateHandlers() {
